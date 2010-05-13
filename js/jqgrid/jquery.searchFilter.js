@@ -1,6 +1,6 @@
 /* Plugin:      searchFilter v1.2.9
  * Author:      Kasey Speakman (kasey@cornerspeed.com)
- * License:     Dual Licensed, MIT and GPL v2 (http://www.gnu.org/copyleft/gpl.html)
+ * License:     Dual Licensed, MIT and GPL v2 (http://www.gnu.org/licenses/gpl-2.0.html)
  *
  * REQUIREMENTS:
  *    jQuery 1.3+           (http://jquery.com/)
@@ -149,6 +149,7 @@ jQuery.fn.searchFilter = function(fields, options) {
             jQ.find(".ui-closer").click();
             return this;
         };
+
 
 
         //---------------------------------------------------------------
@@ -410,9 +411,9 @@ jQuery.fn.searchFilter = function(fields, options) {
                 return false;
             });
             jQ.find(".ui-search").click(function(e) {
-                var ui = jQuery(jQ.selector);
+                var ui = jQuery(jQ.selector); // pointer to search box wrapper element
                 var ruleGroup;
-                var group_op = ui.find("select[name='groupOp'] :selected").val();
+                var group_op = ui.find("select[name='groupOp'] :selected").val(); // puls "AND" or "OR"
                 if (!opts.stringResult) {
                     ruleGroup = {
                         groupOp: group_op,
@@ -466,9 +467,117 @@ jQuery.fn.searchFilter = function(fields, options) {
                 newRow.find("select[name='field']").change();
                 return false;
             });
-        }
-    }
 
+            this.setGroupOp = function(setting) {
+                /* a "setter" for groupping argument.
+                 *  ("AND" or "OR")
+                 *
+                 * Inputs:
+                 *  setting - a string
+                 *
+                 * Returns:
+                 *  Does not return anything. May add success / failure reporting in future versions.
+                 *
+                 *  author: Daniel Dotsenko (dotsa@hotmail.com)
+                 */
+                selDOMobj = this.$.find("select[name='groupOp']")[0];
+                var indexmap = {}, l = selDOMobj.options.length, i;
+                for (i=0; i<l; i++) {
+                    indexmap[selDOMobj.options[i].value] = i;
+                }
+                selDOMobj.selectedIndex = indexmap[setting];
+                $(selDOMobj).change();
+            };
+
+            this.setFilter = function(settings) {
+                /* a "setter" for an arbitrary SearchFilter's filter line.
+                 * designed to abstract the DOM manipulations required to infer
+                 * a particular filter is a fit to the search box.
+                 *
+                 * Inputs:
+                 *  settings - an "object" (dictionary)
+                 *   index (optional*) (to be implemented in the future) : signed integer index (from top to bottom per DOM) of the filter line to fill.
+                 *           Negative integers (rooted in -1 and lower) denote position of the line from the bottom.
+                 *   sfref (optional*) : DOM object referencing individual '.sf' (normally a TR element) to be populated. (optional)
+                 *   filter (mandatory) : object (dictionary) of form {'field':'field_value','op':'op_value','data':'data value'}
+                 *
+                 * * It is mandatory to have either index or sfref defined.
+                 *
+                 * Returns:
+                 *  Does not return anything. May add success / failure reporting in future versions.
+                 *
+                 *  author: Daniel Dotsenko (dotsa@hotmail.com)
+                 */
+
+                var o = settings['sfref'], filter = settings['filter'];
+                
+                // setting up valueindexmap that we will need to manipulate SELECT elements.
+                var fields = [], i, j , l, lj, li,
+                    valueindexmap = {};
+                    // example of valueindexmap:
+                    // {'field1':{'index':0,'ops':{'eq':0,'ne':1}},'fieldX':{'index':1,'ops':{'eq':0,'ne':1},'data':{'true':0,'false':1}}},
+                    // if data is undefined it's a INPUT field. If defined, it's SELECT
+                selDOMobj = o.find("select[name='field']")[0];
+                for (i=0, l=selDOMobj.options.length; i<l; i++) {
+                    valueindexmap[selDOMobj.options[i].value] = {'index':i,'ops':{}};
+                    fields.push(selDOMobj.options[i].value);
+                }
+                for (i=0, li=fields.length; i < li; i++) {
+                    selDOMobj = o.find(".ops > select[class='field"+i+"']")[0];
+                    if (selDOMobj) {
+                        for (j=0, lj=selDOMobj.options.length; j<lj; j++) {
+                            valueindexmap[fields[i]]['ops'][selDOMobj.options[j].value] = j;
+                        }
+                    }
+                    selDOMobj = o.find(".data > select[class='field"+i+"']")[0];
+                    if (selDOMobj) {
+                        valueindexmap[fields[i]]['data'] = {}; // this setting is the flag that 'data' is contained in a SELECT
+                        for (j=0, lj=selDOMobj.options.length; j<lj; j++) {
+                            valueindexmap[fields[i]]['data'][selDOMobj.options[j].value] = j;
+                        }
+                    }
+                } // done populating valueindexmap
+
+                // preparsing the index values for SELECT elements.
+                var fieldvalue, fieldindex, opindex, datavalue, dataindex;
+                fieldvalue = filter['field'];
+				if (valueindexmap[fieldvalue]) {
+					fieldindex = valueindexmap[fieldvalue]['index'];
+				}
+                if (fieldindex != null) {
+                    opindex = valueindexmap[fieldvalue]['ops'][filter['op']];
+                    if(opindex === undefined) {
+                        for(i=0,li=options.operators.length; i<li;i++) {
+                            if(options.operators[i].op == filter.op ){
+                                opindex = i;
+                                break;
+                            }
+                        }
+                    }
+                    datavalue = filter['data'];
+                    if (valueindexmap[fieldvalue]['data'] == null) {
+                        dataindex = -1; // 'data' is not SELECT, Making the var 'defined'
+                    } else {
+                        dataindex = valueindexmap[fieldvalue]['data'][datavalue]; // 'undefined' may come from here.
+                    }
+                }
+                // only if values for 'field' and 'op' and 'data' are 'found' in mapping...
+                if (fieldindex != null && opindex != null && dataindex != null) {
+                    o.find("select[name='field']")[0].selectedIndex = fieldindex;
+                    o.find("select[name='field']").change();
+                    o.find("select[name='op']")[0].selectedIndex = opindex;
+                    o.find("input.vdata").val(datavalue); // if jquery does not find any INPUT, it does not set any. This means we deal with SELECT
+                    o = o.find("select.vdata")[0];
+                    if (o) {
+                        o.selectedIndex = dataindex;
+                    }
+					return true
+                } else {
+					return false
+				}
+            }; // end of this.setFilter fn
+        } // end of if fields != null
+    }
     return new SearchFilter(this, fields, options);
 };
 

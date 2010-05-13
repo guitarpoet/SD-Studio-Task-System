@@ -52,12 +52,13 @@
 			<ul class="navigation">
 				<li class="username navigation first_navigation"><?php echo $_SESSION["user"];?></li>
 				<?php
-					if(isset($_SESSION["admin"])){
+					if($_SESSION["admin"]){
 				?>
 				<li class="navigation"><a href="users.php">User Management</a></li>
 				<?php
 					}
 				?>
+				<li class="navigation"><a href="change_password.php">Change Password</a></li>
 				<li class="navigation"><a href="logout.php">Logout</a></li>
 			</ul>
 			<?php } ?>

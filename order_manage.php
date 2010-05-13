@@ -98,7 +98,7 @@
 		$customer = $_POST["customer"];
 		$in_charge = $_POST["in_charge"];
 		if($id == "_empty"){
-			$sql = "insert into orders(name, begin, end, status, price, charged, customer, in_charge) values ($name, date($begin), date($end), $status, $price, $charged, $customer, $in_charge)";
+			$sql = "insert into orders(name, begin, end, status, price, charged, customer, in_charge) values ('$name', date($begin), date($end), $status, $price, $charged, '$customer', '$in_charge')";
 		}
 		else {
 			$sql = "update orders set name = $name, begin = date('$begin'), end = date('$end'), status = $status, price = $price, charged = $charged, customer = '$customer', in_charge = '$in_charge' where id = $id";

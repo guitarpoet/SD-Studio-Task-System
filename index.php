@@ -143,7 +143,7 @@
 							height: "100%"
 						}); 
 						$("#"+subgrid_table_id).jqGrid('navGrid',"#"+pager_id, {search:true, edit: true, add:true, del:true}, {
-							afterShowForm : function(){
+							onInitializeForm : function(){
 								$("#task_begin").datepicker({
 									dateFormat:'yy-m-d',
 									beforeShow: function(){
@@ -166,12 +166,14 @@
 					}
 				
 				}).navGrid('#order_pager', {search:true, edit: true, add:true, del:true}, {
-					afterShowForm : function(){
+					beforeShowForm : function(){
+						if($("#begin").is(".hasDatepicker"))
+							return;
 						$("#begin").datepicker({
 							dateFormat:'yy-m-d',
 							beforeShow: function(){
 								var val =  $("#begin").val() != null? $("#begin").val() : new Date();
-								$("#task_begin").datepicker("setDate", val);
+								$("#begin").datepicker("setDate", val);
 						    	}
 						});
 						$("#end").datepicker({
