@@ -1,4 +1,4 @@
-<?php
+<?php 
 	require_once("security.php");
 	require_once("config.php");
 	header("Content-Type: application/json;charset=utf-8");
@@ -10,8 +10,8 @@
 		$sidx = $_GET["sidx"];
 		$sord = $_GET["sord"];
 
-		$query = "select * from orders";
-		$countQuery = "select count(*) as count from orders";
+		$query = "select * from users";
+		$countQuery = "select count(*) as count from users";
 		if($isSearch) {	
 			$searchField = $_GET["searchField"];
 			$searchOper = $_GET["searchOper"];
@@ -70,7 +70,6 @@
 		$ret = array();
 		$off = ($page - 1) * $rows;
 		$query = "$query order by $sidx $sord limit $off, $rows";
-		$countQuery = "$countQuery order by $sidx $sord";
 
 		$result = mysql_query($countQuery);
 		$row = mysql_fetch_assoc($result);
@@ -84,24 +83,18 @@
 		mysql_close();
 
 		$ret["page"] = 	(int)($page);
-		$ret["count"] =$ret["records"] / $rows;
+		$ret["count"] = (int)($ret["records"] / $rows);
 		echo json_encode($ret);
 	}
 	else {
 		$id = $_POST["id"];
 		$name = $_POST["name"];
-		$begin  = ($_POST["begin"]);
-		$end = ($_POST["end"]);
-		$status = $_POST["status"];
-		$price = $_POST["price"];
-		$charged = $_POST["charged"];
-		$customer = $_POST["customer"];
-		$in_charge = $_POST["in_charge"];
+		$is_admin  = $_POST["is_admin"];
 		if($id == "_empty"){
-			$sql = "insert into orders(name, begin, end, status, price, charged, customer, in_charge) values ('$name', date('$begin'), date('$end'), $status, $price, $charged, '$customer', '$in_charge')";
+			$sql = "insert into users(name, is_admin, login_count, password) values ('$name', $is_admin, 0, password('password'))";
 		}
 		else {
-			$sql = "update orders set name = '$name', begin = date('$begin'), end = date('$end'), status = $status, price = $price, charged = $charged, customer = '$customer', in_charge = '$in_charge' where id = $id";
+			$sql = "update users set name = '$name', is_admin = $is_admin where id = $id";
 		}
 		mysql_query($sql);
 		mysql_close();

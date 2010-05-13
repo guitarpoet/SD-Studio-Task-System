@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<title>SD Studio Inner System</title>
 	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="js/i18n/grid.locale-en.js"></script>
 	<script type="text/javascript" src="js/grid.loader.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8rc3.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tokeninput.js"></script>

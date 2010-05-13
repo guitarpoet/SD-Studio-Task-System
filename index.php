@@ -142,50 +142,63 @@
 							sortorder: "asc",
 							height: "100%"
 						}); 
-						$("#"+subgrid_table_id).jqGrid('navGrid',"#"+pager_id, {search:true, edit: true, add:true, del:true}, {
-							onInitializeForm : function(){
-								$("#task_begin").datepicker({
-									dateFormat:'yy-m-d',
-									beforeShow: function(){
-										var val =  $("#task_begin").val() != null? $("#task_begin").val() : new Date();
-										$("#task_begin").datepicker("setDate", val);
-									}
-								});
-								$("#task_end").datepicker({
-									dateFormat:'yy-m-d',
-									beforeShow: function(){
-										var val =  $("#task_end").val() != null? $("#task_end").val() : new Date();
-										$("#task_end").datepicker("setDate", val);
-									}
-								});
-							}
-						});
+						$("#"+subgrid_table_id).jqGrid('navGrid',"#"+pager_id, {search:true, edit: true, add:true, del:true});
 					},
 					jsonReader: {
 					    repeatitems: false,
 					}
 				
-				}).navGrid('#order_pager', {search:true, edit: true, add:true, del:true}, {
-					beforeShowForm : function(){
-						if($("#begin").is(".hasDatepicker"))
-							return;
-						$("#begin").datepicker({
-							dateFormat:'yy-m-d',
-							beforeShow: function(){
-								var val =  $("#begin").val() != null? $("#begin").val() : new Date();
-								$("#begin").datepicker("setDate", val);
-						    	}
-						});
-						$("#end").datepicker({
-							dateFormat:'yy-m-d',
-							beforeShow: function(){
-								var val =  $("#end").val() != null? $("#end").val() : new Date();
-								$("#end").datepicker("setDate", val);
-						    	}
-						});
-					}
+				}).navGrid('#order_pager', {search:true, edit: true, add:true, del:true});
+
+				function createDatepicker(name){
+					$(name).datepicker({
+						dateFormat: 'yy-m-d',
+						beforeShow: function(){
+							var val =  $(name).val();
+						       	val = (val != null && val != "") ? $(name).val() : new Date();
+							$(name).datepicker("setDate", val);
+						}
+					});
+				}
+
+				$.jgrid.edit.afterShowForm = function(){
+					createDatepicker("#begin");
+					createDatepicker("#end");
+					createDatepicker("#task_begin");
+					createDatepicker("#task_end");
+					/*
+					$("#begin").datepicker({
+						dateFormat:'yy-m-d',
+						beforeShow: function(){
+							var val =  $("#begin").val() != null? $("#begin").val() : new Date();
+							$("#begin").datepicker("setDate", val);
+						}
+					});
+					$("#end").datepicker({
+						dateFormat:'yy-m-d',
+						beforeShow: function(){
+							var val =  $("#end").val() != null? $("#end").val() : new Date();
+							$("#end").datepicker("setDate", val);
+						}
+					});
+					$("#task_begin").datepicker({
+						dateFormat:'yy-m-d',
+						beforeShow: function(){
+							var val =  $("#task_begin").val() != null? $("#task_begin").val() : new Date();
+							$("#task_begin").datepicker("setDate", val);
+						}
+					});
+					$("#task_end").datepicker({
+						dateFormat:'yy-m-d',
+						beforeShow: function(){
+							var val =  $("#task_end").val() != null? $("#task_end").val() : new Date();
+							$("#task_end").datepicker("setDate", val);
+						}
 				});
-			});		</script>
+					 */
+				}
+			});	
+		</script>
 		<div id="content" class="clearfix">
 			<table id="orders">
 			</table>
