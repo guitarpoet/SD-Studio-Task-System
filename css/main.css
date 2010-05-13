@@ -1,0 +1,469 @@
+@import "jquery.ui.css";
+
+@import "ui.jqgrid.css";
+
+@import "reset.css";
+
+@import "dashboard.css";
+
+@import "jNice.css";
+
+body {
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+	font-size: 12px;
+	background-color: #fff;
+	padding: 20px 20px;
+}
+
+#main {
+	overflow: hidden;
+}
+
+#login_form {
+	margin: auto;
+}
+
+#login_form .panel_body {
+	padding: 5px;
+}
+
+#header ul.navigation {
+	position: absolute;
+	right: 0px;
+}
+
+li.navigation {
+	display: inline;
+	font-size: 11px;
+	border-left: 1px solid #CEE1D9;
+	margin-left: 10px;
+	padding-left: 10px;
+}
+
+li.first_navigation {
+	border-left: none;
+	padding-left: 0px;
+}
+
+.legal {
+	padding-top: 10px;
+	display: block;
+	color: #757D7A;
+}
+
+#header ul.navigation li.username {
+	color: #757D7A;
+}
+
+ul.navigation li a {
+	text-decoration: none;
+	color: #007934;
+}
+
+#page {
+	width: 950px;
+	margin: auto;
+}
+
+#header {
+	position: relative;
+	overflow: hidden;
+	height: 77px;
+}
+
+#footer {
+	text-align: center;
+}
+
+#footer_navigations {
+	margin: 10px;
+}
+
+#logo {
+	font-size: 32px;
+	color: #2E6E9E;
+	position: absolute;
+}
+
+.ui-widget {
+	font-size: 10px;
+}
+
+#functions {
+	bottom: 5px;
+	position: absolute;
+}
+
+#dashboard {
+	overflow: hidden;
+}
+
+li.widget {
+	-moz-border-radius: 2px;
+	border: 1px solid #4297d7;
+}
+
+li.widget .widget-header {
+	background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png)
+		50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+/**
+ * ================= For account management =================
+ */
+.sidebar {
+	width: 290px;
+	float: left;
+}
+
+#account_reports, #account_body {
+	float: right;
+	width: 650px;
+}
+
+.panel {
+	padding: 2px 2px;
+	border: 1px solid #A6C9E2;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-bottom: 5px;
+}
+
+.panel_header {
+	padding: 8px 8px;
+	font-weight: bold;
+	font-size: 10px;
+}
+
+.panel_body {
+	
+}
+
+div#account_toolbar {
+	padding: 8px 8px;
+	overflow: hidden;
+	position: relative;
+	height: 12px;
+	margin-bottom: 5px;
+}
+
+#add_account {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	font-size: 10px;
+}
+
+.ui-widget-header {
+	border: 1px solid #A6C9E2;
+}
+
+.subtitle {
+	color: #2E6E9E;
+	font-weight: bold;
+	margin: 5px 5px 5px 5px;
+	font-size: 14px;
+}
+
+#quick_operations {
+	margin-top: 5px;
+}
+
+.ui-jqgrid .ui-jqgrid-title {
+	padding-left: 5px;
+}
+
+.ui-button-set .ui-button {
+	margin-right: -4px;
+}
+
+.widget-controls {
+	overflow: hidden;
+	display: block;
+	position: absolute;
+	right: 7px;
+	top: 7px;
+}
+
+.widget-wrapper {
+	position: relative;
+	padding: 2px;
+}
+
+.required {
+	color: red;
+	font-weight: bold;
+}
+
+.quick_operation_item {
+	text-align: center;
+}
+
+/*
+ * This is for auto complete
+ */ /* Example tokeninput style #2: Facebook style */
+ul.token-input-list-facebook {
+	overflow: hidden;
+	height: auto !important;
+	height: 1%;
+	border: 1px solid #8496ba;
+	cursor: text;
+	font-size: 12px;
+	font-family: Verdana;
+	min-height: 1px;
+	z-index: 999;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
+
+ul.token-input-list-facebook {
+	list-style-type: none;
+}
+
+ul.token-input-list-facebook li input {
+	border: 0;
+	width: 100px;
+	padding: 3px 8px;
+	background-color: white;
+	margin: 2px 0;
+}
+
+li.token-input-token-facebook {
+	overflow: hidden;
+	height: auto !important;
+	height: 1%;
+	margin: 3px;
+	padding: 1px 3px;
+	background-color: #eff2f7;
+	color: #000;
+	cursor: default;
+	border: 1px solid #ccd5e4;
+	font-size: 11px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	float: left;
+}
+
+li.token-input-token-facebook p {
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+li.token-input-token-facebook span {
+	color: #a6b3cf;
+	margin-left: 5px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+li.token-input-selected-token-facebook {
+	background-color: #5670a6;
+	border: 1px solid #3b5998;
+	color: #fff;
+}
+
+li.token-input-input-token-facebook {
+	float: left;
+}
+
+div.token-input-dropdown-facebook {
+	position: absolute;
+	width: 400px;
+	background-color: #fff;
+	overflow: hidden;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	cursor: default;
+	font-size: 11px;
+	font-family: Verdana;
+	z-index: 1;
+}
+
+div.token-input-dropdown-facebook p {
+	margin: 0;
+	padding: 5px;
+	font-weight: bold;
+	color: #777;
+}
+
+div.token-input-dropdown-facebook ul {
+	margin: 0;
+	padding: 0;
+}
+
+div.token-input-dropdown-facebook ul li {
+	background-color: #fff;
+	padding: 3px;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook
+	{
+	background-color: #fff;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook
+	{
+	background-color: #fff;
+}
+
+div.token-input-dropdown-facebook ul li em {
+	font-weight: bold;
+	font-style: none;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook
+	{
+	background-color: #3b5998;
+	color: #fff;
+}
+
+/*
+ * For plans
+ */
+#plan_body {
+	float: right;
+	width: 640px;
+}
+
+#plan_sidebar {
+	float: left;
+	width: 300px;
+}
+
+.date_item {
+	position: relative;
+}
+
+
+.plan_item {
+	border: 1px solid #A6C9E2;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 3px;
+	padding: 3px;
+	overflow: hidden;
+	position: relative;
+}
+
+.plan_item_hover {
+	border-color: #2E6E9E;
+}
+
+.plan_item h3 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #2E6E9E;
+	margin: 5px;
+}
+
+.plan_item .plan_dates {
+	overflow: hidden;
+}
+
+.date_item_wrapper {
+	float: left;
+	margin-left: 100px;
+}
+
+.plan_item .plan_monthly_config {
+	float: left;
+	width: 375px;
+}
+
+.plan_item .plan_progress {
+	float: left;
+	width: 200px;
+}
+
+.plan_progress .ui-progressbar {
+	height: 100px;
+}
+
+.jNice dd, .jNice dt {
+	overflow: hidden;
+	position: relative;
+	float: left;
+}
+
+.jNice dt {
+	text-align: right;
+	margin: 0px 5px 10px 0px;
+	width: 80px;
+}
+
+.registerForm dt {
+	width: 120px;
+}
+
+.jNice {
+	padding: 5px;
+}
+
+.jNice, .jNice dl {
+	overflow: hidden;
+}
+
+.plan_form dt {
+	width: 110px;
+}
+
+.plan_form dd {
+	width: 150px;
+}
+
+.jNiceTextarea {
+	border: 1px solid #a7a9ac;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	width: 98%;
+}
+
+fieldset.action {
+	padding: 10px 20px 0px 0px;
+	text-align: right;
+}
+
+.jNiceTextarea_hover {
+	border: 1px solid #c9c943;
+}
+
+.plan_monthly_config {
+	text-align: center;
+	font-size: 18px;
+	padding-top: 30px;
+}
+
+.plan_monthly_config .inplace_field {
+	width : 100px;
+}
+
+.plan_desc {
+	padding-left: 10px;
+	font-style: italic;
+}
+
+.deletePlanButton {
+	position: absolute;
+	right: 5px;
+	top: 10px;
+}
+
+.plan_money {
+	font-size: 14px;
+	margin: 10px;
+}
+
+input.jNiceInput {
+	width: 100px;
+}

@@ -1,0 +1,28 @@
+drop table orders;
+drop table tasks;
+drop table resources;
+
+create table orders (
+	id integer primary key auto_increment,
+	name varchar(64) not null,
+	begin date,
+	end date,
+	status integer,
+	price numeric,
+	charged numeric,
+	customer varchar(128),
+	in_charge integer
+);
+
+create table tasks (
+	id integer primary key auto_increment,
+	name varchar(64),
+	order_id integer,
+	resource_id integer
+);
+
+create table resources (
+	id integer primary key auto_increment,
+	name varchar(64),
+	email varchar(128)
+);
